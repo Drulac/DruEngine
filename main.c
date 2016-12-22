@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <string.h>
-#include <stdio.h>
 #include <ctype.h>
 
 void pause();
@@ -10,41 +9,25 @@ void sdlInit();
 void parse(char * code);
 int findNextOpenTag(char * code, int cursor);
 int findNextCloseTag(char * code, int cursor);
+char* loadFile(char* filename);
 
 int main(int argc, char *argv[])
 {
 	char* filename = "test/test.html";
 
-	char* buffer = 0;
-	long len;
-	FILE* f = fopen(filename, "r");
+	char* buffer = loadFile(filename);
 
-	if(f)
+	parse(buffer);		
+
+
+
+	printf("\n");
+	printf("\n");
+	int i = 0;
+	int len = strlen(buffer);
+	for(i = 0; i < len; i++)
 	{
-		fseek(f, 0, SEEK_END);
-		len = ftell(f);
-		fseek(f, 0, SEEK_SET);
-		buffer = malloc(len);
-		if(buffer)
-		{
-			fread(buffer, 1, len, f);
-		}
-		fclose(f);
-	}
-
-	if(buffer)
-	{
-		parse(buffer);		
-
-
-
-		printf("\n");
-		printf("\n");
-		int i = 0;
-		for(i = 0; i < len; i++)
-		{
-			printf("%c", buffer[i]);
-		}
+		printf("%c", buffer[i]);
 	}
 
 	printf("\n");
@@ -78,6 +61,28 @@ void pause()
 				continuer = 0;
 		}
 	}
+}
+
+char* loadFile(char* filename)
+{
+	char* buffer = 0;
+	long len;
+	FILE* f = fopen(filename, "r");
+
+	if(f)
+	{
+		fseek(f, 0, SEEK_END);
+		len = ftell(f);
+		fseek(f, 0, SEEK_SET);
+		buffer = malloc(len);
+		if(buffer)
+		{
+			fread(buffer, 1, len, f);
+		}
+		fclose(f);
+	}
+
+	return buffer;
 }
 
 void parse(char * code)
