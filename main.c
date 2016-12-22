@@ -24,8 +24,6 @@ struct _balise
 void pause();
 void sdlInit();
 void parse(char * code);
-int findNextOpenTag(char * code, int cursor);
-int findNextCloseTag(char * code, int cursor);
 char* loadFile(char* filename);
 
 int main(int argc, char *argv[])
@@ -191,46 +189,4 @@ void parse(char * code)
 		printf("%d : %s : %s\n", content[i].closing, content[i].balise, content[i].attributs);
 		printf(ANSI_COLOR_RESET);
 	}
-}
-
-int findNextOpenTag(char * code, int cursor)
-{
-	int i = 0;
-	int len = strlen(code);
-	int openedText = 0;
-
-	for(i = cursor; i < len; i++)
-	{
-		if(!openedText && code[i] == '<' && (i == 0 || code[i-1] != '\\'))
-		{
-			return i;
-		}else if(!openedText && code[i] == '"' && (i == 0 || code[i-1] != '\\')){
-			openedText = 1;
-		}else if(openedText && code[i] == '"' && (i == 0 || code[i-1] != '\\')){
-			openedText = 0;
-		}
-	}
-
-	return -1;
-}
-
-int findNextCloseTag(char * code, int cursor)
-{
-	int i = 0;
-	int len = strlen(code);
-	int openedText = 0;
-
-	for(i = cursor; i < len; i++)
-	{
-		if(!openedText && code[i] == '>' && (i == 0 || code[i-1] != '\\'))
-		{
-			return i;
-		}else if(!openedText && code[i] == '"' && (i == 0 || code[i-1] != '\\')){
-			openedText = 1;
-		}else if(openedText && code[i] == '"' && (i == 0 || code[i-1] != '\\')){
-			openedText = 0;
-		}
-	}
-
-	return -1;
 }
