@@ -1,1 +1,1 @@
-gcc main.c `sdl-config --cflags --libs` -o out && ./out
+gcc -g main.c `sdl-config --cflags --libs` -o out && ./out
