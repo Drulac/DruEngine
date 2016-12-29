@@ -1,1 +1,1 @@
-clear && gcc main.c  -L./lib -I./include -lSDL2-2.0 -g -D_GLIBCXX_DEBUG -fsanitize=address -fsanitize=undefined -lSDL_ttf -o out && ./out
+clear && gcc main.c  -L./lib -I./include -lSDL2-2.0 `sdl-config --cflags --libs` -lSDL2_ttf -g -D_GLIBCXX_DEBUG -fsanitize=address -fsanitize=undefined -o out && ./out

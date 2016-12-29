@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 bt () {
   esc="$(echo -e "\e")"
